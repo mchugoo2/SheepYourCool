@@ -469,6 +469,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8787617495520714629, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 98181a4c2da0ff542b4b81946b4b7b9f, type: 2}
     - target: {fileID: 8787617495520714631, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -515,11 +519,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8787617495520714650, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
       propertyPath: mXSize
-      value: 20
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8787617495520714650, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
       propertyPath: mZSize
-      value: 20
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787617495520714650, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
+      propertyPath: mPerlinNoisMultiplier
+      value: 2.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787617495520714650, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
+      propertyPath: mPerlinNoiseMultiplier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787617495520714650, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
+      propertyPath: mPerlinNoiseXMultiplier
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787617495520714650, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
+      propertyPath: mPerlinNoiseZMultiplier
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787617495520714650, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
+      propertyPath: mScale2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787617495520714650, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
+      propertyPath: mScale3
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787617495520714650, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
+      propertyPath: mScale1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787617495520714650, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
+      propertyPath: mAmp2
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787617495520714650, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
+      propertyPath: mAmp1
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787617495520714650, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
+      propertyPath: mAmp3
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8787617495520714651, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
       propertyPath: m_Name
@@ -556,7 +600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd453c1b50aae2743851e93873f4ac60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mCursorLockedAndInvisible: 1
+  mCursorLockedAndInvisible: 0
 --- !u!4 &1868184702
 Transform:
   m_ObjectHideFlags: 0

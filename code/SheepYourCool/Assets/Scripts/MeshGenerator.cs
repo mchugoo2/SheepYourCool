@@ -9,6 +9,21 @@ public class MeshGenerator : MonoBehaviour
     public int mXSize = 50;
     public int mZSize = 50;
 
+    public bool mDrawGizmos = true;
+
+    //public float mPerlinNoiseMultiplier = 2f;
+    //public float mPerlinNoiseXMultiplier = 0.3f;
+    //public float mPerlinNoiseZMultiplier = 0.3f;
+
+
+    public float mAmp1 = 18.76f;
+    public float mAmp2 = 14.2f;
+    public float mAmp3 = 1.0f;
+    public float mScale1 = 3.26f;
+    public float mScale2 = 11.04f;
+    public float mScale3 = 10.35f;
+
+
     private Mesh mMesh;
 
     private Vector3[] mVertices;
@@ -45,7 +60,8 @@ public class MeshGenerator : MonoBehaviour
         {
             for (int x = 0; x <= mXSize; x++)
             {
-                float y = Mathf.PerlinNoise(x * 0.3f, z * 0.3f) * 2f;
+                //float y = Mathf.PerlinNoise(x * mPerlinNoiseXMultiplier, z * mPerlinNoiseZMultiplier) * mPerlinNoiseMultiplier;
+                float y = CalculateNoise(x, z);
                 mVertices[i] = new Vector3(x, y, z);
                 i++;
             }
@@ -78,6 +94,17 @@ public class MeshGenerator : MonoBehaviour
 
     }
 
+    private float CalculateNoise(float x, float z)
+    {
+
+        float noise;
+        noise = Mathf.PerlinNoise(x, z) * 5;
+        noise += Mathf.PerlinNoise(x * mAmp1, z * mAmp1) * mScale1;
+        noise -= Mathf.PerlinNoise(x * mAmp2, z * mAmp2) * mScale2;
+        noise += Mathf.PerlinNoise(x * mAmp3, z * mAmp3) * mScale3 * 2;
+        return noise;
+    }
+
     private void UpdateMesh()
     {
         mMesh.Clear();
@@ -91,7 +118,7 @@ public class MeshGenerator : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (mVertices == null)
+        if (!mDrawGizmos || mVertices == null)
         {
             return;
         }
