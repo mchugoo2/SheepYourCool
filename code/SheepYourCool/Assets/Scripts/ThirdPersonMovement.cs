@@ -25,7 +25,6 @@ public class ThirdPersonMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(mController.isGrounded);
 
         //movement in x and z dir
         float horizontal = Input.GetAxisRaw("Horizontal");
