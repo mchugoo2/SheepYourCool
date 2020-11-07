@@ -433,15 +433,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5774134200569124458, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.010340754
+      value: -0.010340724
       objectReference: {fileID: 0}
     - target: {fileID: 5774134200569124458, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000017050532
+      value: -0.000000017050532
       objectReference: {fileID: 0}
     - target: {fileID: 5774134200569124458, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000023106272
+      value: 0.0000000023106277
       objectReference: {fileID: 0}
     - target: {fileID: 5774134200569124458, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalPosition.y
@@ -600,7 +600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd453c1b50aae2743851e93873f4ac60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mCursorLockedAndInvisible: 0
+  mCursorLockedAndInvisible: 1
 --- !u!4 &1868184702
 Transform:
   m_ObjectHideFlags: 0
