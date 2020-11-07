@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8787617495520714629}
   - component: {fileID: 8787617495520714650}
   m_Layer: 0
-  m_Name: MeshGenerator
+  m_Name: MapManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,3 +94,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d304274a0a3ec640a69dba3179fd887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mXSize: 50
+  mZSize: 50
+  mDrawGizmos: 1
+  mAmp1: 18.76
+  mAmp2: 14.2
+  mAmp3: 1
+  mScale1: 3.26
+  mScale2: 11.04
+  mScale3: 10.35
