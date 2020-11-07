@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1014e35e9f298042a5c53859b282d1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mSheepPrefab: {fileID: 7281678933663822921, guid: 693b455a5790e534d877d40fce7c7a95, type: 3}
+  mSheepPrefab: {fileID: 1516622569849849453, guid: aaeb0e1763bc125458fc59592871c67a, type: 3}
   mSheepAmount: 10
   mSheepRunSize: 5
 --- !u!4 &499200013
@@ -396,7 +396,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 707514e7955de2d42bb61a74a648ca8d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
