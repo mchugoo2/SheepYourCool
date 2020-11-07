@@ -6,10 +6,14 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter))]
 public class MeshGenerator : MonoBehaviour
 {
-    Mesh mMesh;
+    public int mXSize = 50;
+    public int mZSize = 50;
 
-    Vector3[] mVertices;
-    int[] mTriangles;
+    private Mesh mMesh;
+
+    private Vector3[] mVertices;
+    private int[] mTriangles;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +23,13 @@ public class MeshGenerator : MonoBehaviour
 
         CreateShape();
         UpdateMesh();
+        MeshCollider coll;
+        if (TryGetComponent<MeshCollider>(out coll))
+        {
+            coll.sharedMesh = null;
+            coll.sharedMesh = mMesh;
+        }
+        
 
     }
 
@@ -26,20 +37,45 @@ public class MeshGenerator : MonoBehaviour
 
     private void CreateShape()
     {
-        mVertices = new Vector3[]
-        {
-            new Vector3(0,0,0),
-            new Vector3(0,0,1),
-            new Vector3(1,0,0),
-            new Vector3(1,0,1),
+        //create vertices
 
-        };
+        mVertices = new Vector3[(mXSize + 1) * (mZSize + 1)];
 
-        mTriangles = new int[]
+        for (int i = 0, z = 0; z <= mZSize; z++)
         {
-            0,1,2,
-            1,3,2
-        };
+            for (int x = 0; x <= mXSize; x++)
+            {
+                float y = Mathf.PerlinNoise(x * 0.3f, z * 0.3f) * 2f;
+                mVertices[i] = new Vector3(x, y, z);
+                i++;
+            }
+        }
+
+        //create triangles
+        mTriangles = new int[mXSize * mZSize * 6];
+        int vert = 0;
+        int tris = 0;
+
+
+        for (int z = 0; z < mZSize; z++)
+        {
+            for (int x = 0; x < mXSize; x++)
+            {
+
+                mTriangles[tris + 0] = vert + 0;
+                mTriangles[tris + 1] = vert + mXSize + 1;
+                mTriangles[tris + 2] = vert + 1;
+                mTriangles[tris + 3] = vert + 1;
+                mTriangles[tris + 4] = vert + mXSize + 1;
+                mTriangles[tris + 5] = vert + mXSize + 2;
+
+                vert++;
+                tris += 6;
+            }
+            vert++;
+        }
+
+
     }
 
     private void UpdateMesh()
@@ -50,5 +86,19 @@ public class MeshGenerator : MonoBehaviour
         mMesh.triangles = mTriangles;
 
         mMesh.RecalculateNormals();
+        mMesh.RecalculateBounds();
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (mVertices == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < mVertices.Length; i++)
+        {
+            Gizmos.DrawSphere(mVertices[i], 0.1f);
+        }
     }
 }
