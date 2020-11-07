@@ -8,10 +8,14 @@ public class MapManager : MonoBehaviour
 {
     public int mBorderPointsEachSide = 20;
     public GameObject mBorderPartPrefab;
+    public GameObject mBorderColumnPrefab;
+
+    public float mBorderPointSharpness = 0.3f; //the greater this is, the deeper border points go in to the middle
 
     private MeshGenerator mMeshGenerator;
     private List<Vector2> mBorderPointList;
     private List<GameObject> mBorderParts;
+    private List<GameObject> mBorderColumns;
 
     private Vector2[] mBorderCorners = new Vector2[4];
 
@@ -26,6 +30,8 @@ public class MapManager : MonoBehaviour
         Vector3 pos = gameObject.transform.position;
 
         mBorderPointList = new List<Vector2>();
+        mBorderParts = new List<GameObject>();
+        mBorderColumns = new List<GameObject>();
 
         mBorderCorners[0] = new Vector2(pos.x, pos.z);
         mBorderCorners[1] = new Vector2(pos.x + mMeshGenerator.mXSize, pos.z);
@@ -70,21 +76,36 @@ public class MapManager : MonoBehaviour
 
                 mBorderPointList.Add(currentVertex);
 
-                GameObject borderPart = Instantiate(mBorderPartPrefab);
-                Vector2 between2d = currentVertex - lastVertexRandomized;
-                Vector3 between = new Vector3(between2d.x, 0, between2d.y);
-                float distBetween = between.magnitude;
+                CreateBorderPartAndColumn(currentVertex, lastVertexRandomized);
 
-                borderPart.transform.localScale = new Vector3(1, 20, distBetween);
-                borderPart.transform.position = new Vector3(lastVertexRandomized.x, 0, lastVertexRandomized.y) + (between / 2.0f);
-                borderPart.transform.LookAt(currentVertex);
-                borderPart.transform.rotation = Quaternion.LookRotation(between);
-
-                borderPart.transform.parent = gameObject.transform;
+                
                 lastVertexRandomized = currentVertex;
             }
 
         }
+    }
+
+    private void CreateBorderPartAndColumn(Vector2 currentVertex, Vector2 lastVertexRandomized)
+    {
+        GameObject borderPart = Instantiate(mBorderPartPrefab);
+        Vector2 between2d = currentVertex - lastVertexRandomized;
+        Vector3 between = new Vector3(between2d.x, 0, between2d.y);
+        float distBetween = between.magnitude;
+
+        borderPart.transform.localScale = new Vector3(1, 20, distBetween);
+        borderPart.transform.position = new Vector3(lastVertexRandomized.x, 0, lastVertexRandomized.y) + (between / 2.0f);
+        borderPart.transform.LookAt(currentVertex);
+        borderPart.transform.rotation = Quaternion.LookRotation(between);
+        
+        borderPart.transform.parent = gameObject.transform;
+
+        mBorderParts.Add(borderPart);
+
+        GameObject borderColumn = Instantiate(mBorderColumnPrefab);
+        mBorderColumnPrefab.transform.position = new Vector3(currentVertex.x, 0, currentVertex.y);
+        mBorderColumnPrefab.transform.localScale = new Vector3(5, 20, 5);
+
+        mBorderColumns.Add(borderColumn);
     }
 
     private Vector2 CalculateRandomVertexPos(Vector2 currentVertex, Vector2 lastVertex, bool changeOnX)
@@ -97,19 +118,15 @@ public class MapManager : MonoBehaviour
 
         Vector2 posOnLine = minPosOnLine + UnityEngine.Random.value * (maxPosOnLine - minPosOnLine);
 
-        Debug.Log("posOnLine: " + posOnLine);
         Vector2 minPosToMiddle = currentVertex;
-        //Vector2 addSize = changeOnX ? new Vector2(0, currentVertex.y) : new Vector2(currentVertex.x, 0);
-        Vector2 addSize = changeOnX ? new Vector2(0, (float)mMeshGenerator.mZSize/mBorderPointsEachSide) : new Vector2((float)mMeshGenerator.mXSize / mBorderPointsEachSide, 0);
-        if (changeOnX && currentVertex.y > 0 || !changeOnX && currentVertex.x > 0)
-            addSize = -addSize;
+        Vector2 addSize = changeOnX ? new Vector2(0, -mBorderPointSharpness*currentVertex.y) : new Vector2(-mBorderPointSharpness*currentVertex.x, 0);
+        //Vector2 addSize = changeOnX ? new Vector2(0, (float)mMeshGenerator.mZSize/mBorderPointsEachSide) : new Vector2((float)mMeshGenerator.mXSize / mBorderPointsEachSide, 0);
+        //if (changeOnX && currentVertex.y > 0 || !changeOnX && currentVertex.x > 0)
+        //    addSize = -addSize;
         Vector2 maxPosToMiddle = currentVertex + addSize;
-        Debug.Log("min pos to middle: " + minPosToMiddle);
-        Debug.Log("max pos to middle: " + maxPosToMiddle);
         Vector2 posToMiddle = minPosToMiddle + UnityEngine.Random.value * (maxPosToMiddle - minPosToMiddle);
-        Debug.Log("posToMiddle: " + posToMiddle);
-        //return(changeOnX? new Vector2(posOnLine.x, posToMiddle.y) : new Vector2(posToMiddle.x, posOnLine.y));
-        return (changeOnX? new Vector2(currentVertex.x, posToMiddle.y) : new Vector2(posToMiddle.x, currentVertex.y));
+        return (changeOnX ? new Vector2(posOnLine.x, posToMiddle.y) : new Vector2(posToMiddle.x, posOnLine.y));
+        //return (changeOnX? new Vector2(currentVertex.x, posToMiddle.y) : new Vector2(posToMiddle.x, currentVertex.y));
     }
 
     // Update is called once per frame
