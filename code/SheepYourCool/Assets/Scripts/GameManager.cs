@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public MapManager mMapManager;
     public SheepManager mSheepManager;
+    public CanvasManager mCanvasManager;
 
     // Start is called before the first frame update
     void Start()
@@ -27,15 +28,10 @@ public class GameManager : MonoBehaviour
 
         mMapManager.Initialize();
         mSheepManager.Initialize();
+        mCanvasManager.Initialize(mSheepManager.mSheepAmount);
 
 
 
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
 
     }
 
@@ -48,13 +44,15 @@ public class GameManager : MonoBehaviour
             fencePolygon[i] = new Vector2(fencePoint.x, fencePoint.z);
         }
 
-        for (int i = 0; i < mSheepManager.mAllSheepAsList.Count; i++)
+        for (int i = 0; i < SheepManager.mAllSheep.Length; i++)
         {
-            GameObject sheep = mSheepManager.mAllSheepAsList[i];
-            if (!sheep.GetComponent<Flock>().mIsCatched && ContainsPoint(fencePolygon, new Vector2(sheep.transform.position.x, sheep.transform.position.z)))
+            GameObject sheep = 
+                SheepManager.mAllSheep[i];
+            if (sheep.GetComponent<Flock>().mCurrentStatus == Flock.Status.NORMAL && ContainsPoint(fencePolygon, new Vector2(sheep.transform.position.x, sheep.transform.position.z)))
             {
-                mSheepManager.CatchSheep(i);
 
+                mSheepManager.CatchSheep(i);
+                UpdateCanvas();
             }
         }
     }
@@ -83,6 +81,11 @@ public class GameManager : MonoBehaviour
     {
         GlobalVariables.mWonLastGame = won;
         SceneManager.LoadScene(2);
+    }
+
+   public void UpdateCanvas()
+    {
+        mCanvasManager.UpdateNumbers(SheepManager.mNormalSheepAmount, SheepManager.mCaughtSheepAmount, SheepManager.mBorderedSheepAmount);
     }
 
 }

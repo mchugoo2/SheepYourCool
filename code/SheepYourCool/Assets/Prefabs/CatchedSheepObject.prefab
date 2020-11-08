@@ -56,7 +56,9 @@ MonoBehaviour:
   mRotationSpeed: 4
   mNeighbourDistance: 2
   mCriticalNeighbourhood: 0.2
-  mIsCatched: 1
+  mSheepSenseSphere: {fileID: 0}
+  mSheepHitSphere: {fileID: 0}
+  mCurrentStatus: 1
 --- !u!143 &-3626106152632499423
 CharacterController:
   m_ObjectHideFlags: 0
