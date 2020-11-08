@@ -11,26 +11,13 @@ public class CanvasManager : MonoBehaviour
 
     public void Initialize(int numNormalSheep)
     {
-        mNormalSheepText.text = numNormalSheep.ToString();
-        mGoldenSheepText.text = "0";
-        mRedSheepText.text = "0";
+        UpdateNumbers(numNormalSheep, 0, 0);
     }
 
-    public void SetNumber(string whichSheep, int number)
+    public void UpdateNumbers(int normalNumber, int goldenNumber, int redNumber)
     {
-        if(whichSheep == "Normal")
-        {
-            mNormalSheepText.text = number.ToString();
-        }
-
-        else if (whichSheep == "Golden")
-        {
-            mGoldenSheepText.text = number.ToString();
-        }
-
-        else if(whichSheep == "Red")
-        {
-            mRedSheepText.text = number.ToString();
-        }
+        mNormalSheepText.text = normalNumber.ToString();
+        mGoldenSheepText.text = goldenNumber.ToString();
+        mRedSheepText.text = redNumber.ToString();
     }
 }

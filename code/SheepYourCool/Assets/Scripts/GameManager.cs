@@ -35,12 +35,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void FenceClosed(List<Vector3> fencePoints)
     {
         Vector2[] fencePolygon = new Vector2[fencePoints.Count];
@@ -58,6 +52,7 @@ public class GameManager : MonoBehaviour
             {
 
                 mSheepManager.CatchSheep(i);
+                UpdateCanvas();
             }
         }
     }
@@ -86,6 +81,11 @@ public class GameManager : MonoBehaviour
     {
         GlobalVariables.mWonLastGame = won;
         SceneManager.LoadScene(2);
+    }
+
+   private void UpdateCanvas()
+    {
+        mCanvasManager.UpdateNumbers(SheepManager.mNormalSheepAmount, SheepManager.mCaughtSheepAmount, SheepManager.mBorderedSheepAmount);
     }
 
 }

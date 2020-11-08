@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SheepManager : MonoBehaviour
 {
+    public GameManager mGameManager;
+
     [SerializeField] public GameObject mSheepPrefab;
     public GameObject mCatchedSheepPrefab;
     public static GameObject[] mAllSheep;
@@ -15,8 +17,14 @@ public class SheepManager : MonoBehaviour
 
     private bool mIsInitialized = false;
 
+    public static int mNormalSheepAmount = 0;
+    public static int mCaughtSheepAmount = 0;
+    public static int mBorderedSheepAmount = 0;
+
+
     public void Initialize()
     {
+        mNormalSheepAmount = mSheepAmount;
         mAllSheep = new GameObject[mSheepAmount];
         for (int i = 0; i < mSheepAmount; i++)
         {
@@ -58,5 +66,12 @@ public class SheepManager : MonoBehaviour
         Destroy(sheep);
 
         mAllSheep[index] = newSheep;
+        mNormalSheepAmount--;
+        mCaughtSheepAmount++;
+
+        if(mNormalSheepAmount <= 0)
+        {
+            mGameManager.GameOver(true);
+        }
     }
 }
