@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public MapManager mMapManager;
     public SheepManager mSheepManager;
+    public CanvasManager mCanvasManager;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
 
         mMapManager.Initialize();
         mSheepManager.Initialize();
+        mCanvasManager.Initialize(mSheepManager.mSheepAmount);
 
 
 
@@ -54,8 +56,8 @@ public class GameManager : MonoBehaviour
                 SheepManager.mAllSheep[i];
             if (!sheep.GetComponent<Flock>().mIsCatched && ContainsPoint(fencePolygon, new Vector2(sheep.transform.position.x, sheep.transform.position.z)))
             {
-                mSheepManager.CatchSheep(i);
 
+                mSheepManager.CatchSheep(i);
             }
         }
     }
