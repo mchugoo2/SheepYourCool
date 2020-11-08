@@ -71,8 +71,6 @@ public class MapManager : MonoBehaviour
 
                 lastVertexNormal = oldCurrentVertex;
 
-                Debug.Log("currentVertex now: " + currentVertex);
-                Debug.Log("===================");
 
                 mBorderPointList.Add(currentVertex);
 
@@ -110,8 +108,6 @@ public class MapManager : MonoBehaviour
 
     private Vector2 CalculateRandomVertexPos(Vector2 currentVertex, Vector2 lastVertex, bool changeOnX)
     {
-        Debug.Log("last vertex: " + lastVertex);
-        Debug.Log("current vertex: " + currentVertex);
         
         Vector2 minPosOnLine = currentVertex - (currentVertex - lastVertex) / 2.0f;
         Vector2 maxPosOnLine = currentVertex + (currentVertex - lastVertex) / 2.0f;
