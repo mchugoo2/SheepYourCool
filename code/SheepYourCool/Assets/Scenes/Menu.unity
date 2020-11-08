@@ -1154,13 +1154,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a158989324e5d448de6cfdb22624de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mButtonEasy: {fileID: 1181816684}
-  mButtonMedium: {fileID: 1296041281}
-  mButtonHard: {fileID: 1064778459}
+  mMarkerEasy: {fileID: 1445498158}
+  mMarkerMedium: {fileID: 1621714782}
+  mMarkerHard: {fileID: 593703861}
   mButtonStart: {fileID: 640409344}
-  mMarkerEasy: {fileID: 0}
-  mMarkerMedium: {fileID: 0}
-  mMarkerHard: {fileID: 0}
   mSheepAmount: 10
   mAreaSize: 20
 --- !u!1 &1064778459
