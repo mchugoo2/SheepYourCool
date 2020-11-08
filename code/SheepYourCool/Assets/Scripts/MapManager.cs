@@ -13,7 +13,7 @@ public class MapManager : MonoBehaviour
     public GameObject mBorderPartPrefab;
     public GameObject mBorderColumnPrefab;
 
-    public float mBorderPointSharpness = 0.3f; //the greater this is, the deeper border points go in to the middle
+    public float mBorderPointSharpness = 0.7f; //the greater this is, the deeper border points go in to the middle
 
     private MeshGenerator mMeshGenerator;
     private List<Vector2> mBorderPointList;
@@ -27,8 +27,9 @@ public class MapManager : MonoBehaviour
     public GameObject mFencePartPrefab;
     public GameObject mFencePostPrefab;
 
-    public float mTwoFencePointsAsOneThreshold = 0.2f;
+    public float mTwoFencePointsAsOneThreshold = 2.0f;
     public float mMaxFenceDistanceThreshold = 5f;
+    public float mFenceHeight = 5f;
 
     private GameObject mCurrentFenceParent;
     private List<Vector3> mCurrentFencePoints;
@@ -42,7 +43,7 @@ public class MapManager : MonoBehaviour
 
     public void Initialize()
     {
-        
+
         mMeshGenerator.Initialize();
 
         gameObject.transform.position = new Vector3(-mMeshGenerator.mXSize / 2f, gameObject.transform.position.y, -mMeshGenerator.mZSize / 2f);
@@ -166,7 +167,7 @@ public class MapManager : MonoBehaviour
         }
 
         //same pos as last post -> do nothing
-        Vector3 lastFencePos = mCurrentFencePoints[0];
+        Vector3 lastFencePos = mCurrentFencePoints[mCurrentFencePoints.Count-1];
         if (Vector3.Distance(pos, lastFencePos) <= mTwoFencePointsAsOneThreshold)
         {
             print("ONETHRESHOLD");
@@ -176,7 +177,7 @@ public class MapManager : MonoBehaviour
 
 
         //same pos as very first post -> check if there is an enclosure
-        Vector3 firstFencePos = mCurrentFencePoints[mCurrentFencePoints.Count - 1];
+        Vector3 firstFencePos = mCurrentFencePoints[0];
         if (Vector3.Distance(pos, firstFencePos) <= mTwoFencePointsAsOneThreshold)
             if (mCurrentFencePoints.Count <= 1)
             {
@@ -195,7 +196,7 @@ public class MapManager : MonoBehaviour
         //if none of the above apply, place a fence between two fence posts
         print("PLACEFENCEPART");
         CreatePost(pos);
-        PlaceFencePart();
+        PlaceFencePart(false);
 
     }
 
@@ -209,20 +210,23 @@ public class MapManager : MonoBehaviour
     private void CloseFence()
     {
         //TODO
+        PlaceFencePart(true);
         ResetFenceBuilding();
     }
 
-    private void PlaceFencePart()
+    private void PlaceFencePart(bool lastFencePart)
     {
+        int length = mCurrentFencePoints.Count;
+
         //its already checked that there are two ore more fence posts
-        Vector3 firstPost = mCurrentFencePoints[1];
-        Vector3 secondPost = mCurrentFencePoints[0];
+        Vector3 firstPost = lastFencePart? mCurrentFencePoints[0] : mCurrentFencePoints[length-2];
+        Vector3 secondPost = mCurrentFencePoints[length-1];
 
         GameObject fencePart = Instantiate(mFencePartPrefab);
         Vector3 between = secondPost - firstPost;
         float distBetween = between.magnitude;
 
-        fencePart.transform.localScale = new Vector3(1, 5, distBetween);
+        fencePart.transform.localScale = new Vector3(1, mFenceHeight, distBetween);
         fencePart.transform.position = firstPost + (between / 2.0f);
         fencePart.transform.LookAt(secondPost);
         fencePart.transform.rotation = Quaternion.LookRotation(between);

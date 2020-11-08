@@ -133,3 +133,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mBorderPointsEachSide: 20
   mBorderPartPrefab: {fileID: 47236471496892774, guid: 28c890313549e2a418928776829f51fd, type: 3}
+  mBorderColumnPrefab: {fileID: 8042964250032498505, guid: 59e10e626d1c4ad4984fad36ce211aea, type: 3}
+  mBorderPointSharpness: 0.7
+  mFencePartPrefab: {fileID: 6966989885356785114, guid: 8a4414265b417134d801617b9df83a50, type: 3}
+  mFencePostPrefab: {fileID: 2740559554636218589, guid: 7af3bfe8aa4660d4ab4ec409be8a3327, type: 3}
+  mTwoFencePointsAsOneThreshold: 0.8
+  mMaxFenceDistanceThreshold: 5
