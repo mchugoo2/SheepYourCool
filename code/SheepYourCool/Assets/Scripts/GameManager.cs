@@ -48,9 +48,10 @@ public class GameManager : MonoBehaviour
             fencePolygon[i] = new Vector2(fencePoint.x, fencePoint.z);
         }
 
-        for (int i = 0; i < mSheepManager.mAllSheepAsList.Count; i++)
+        for (int i = 0; i < SheepManager.mAllSheep.Length; i++)
         {
-            GameObject sheep = mSheepManager.mAllSheepAsList[i];
+            GameObject sheep = 
+                SheepManager.mAllSheep[i];
             if (!sheep.GetComponent<Flock>().mIsCatched && ContainsPoint(fencePolygon, new Vector2(sheep.transform.position.x, sheep.transform.position.z)))
             {
                 mSheepManager.CatchSheep(i);
