@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SenseSphere : MonoBehaviour
+public class SheepSenseSphere : MonoBehaviour
 {
-    private ThirdPersonMovement mThirdPersonMovement;
+    private Flock mFlock;
     private bool mIsInitialized = false;
-
-
-    public void Initialize(ThirdPersonMovement thirdPersonMovement)
+    private List<Collider> mColls;
+    public void Initialize(Flock flock)
     {
-        mThirdPersonMovement = thirdPersonMovement;
+        mFlock = flock;
         mIsInitialized = true;
     }
 
@@ -19,19 +18,20 @@ public class SenseSphere : MonoBehaviour
         Debug.Log("ENTER");
         if (!mIsInitialized)
             return;
-
-        mThirdPersonMovement.CollisionSensed(other);
-        
+        mColls.Add(other);
+        mFlock.CollisionSensed(other);
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (!mIsInitialized)
             return;
-
-        mThirdPersonMovement.CollisionLeft(other);
+        mColls.Remove(other);
+        mFlock.CollisionLeft(other);
     }
 
-
-
+    public List<Collider> GetColls()
+    {
+        return mColls;
+    }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2151598278773649521}
   - component: {fileID: -3626106152632499423}
   m_Layer: 9
-  m_Name: SheepObject
+  m_Name: CatchedSheepObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,8 +34,6 @@ Transform:
   - {fileID: 4122529841738807139}
   - {fileID: 8358184338147875498}
   - {fileID: 6495306458661529587}
-  - {fileID: 7676628853262763955}
-  - {fileID: 7383717232070773184}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -55,14 +53,10 @@ MonoBehaviour:
   mSpeed: 0.1
   mMinSpeed: 0.2
   mMaxSpeed: 0.75
-  mRotationSpeed: 2
-  mNeighbourDistance: 20
-  mCriticalNeighbourhood: 0.1
-  mCriticalWuffles: 0.25
-  mIsCatched: 0
-  mSheepSenseSphere: {fileID: 1682061276141327026}
-  mSheepHitSphere: {fileID: 4762200635714504284}
-  mCurrentStatus: 0
+  mRotationSpeed: 4
+  mNeighbourDistance: 2
+  mCriticalNeighbourhood: 0.2
+  mCurrentStatus: 2
 --- !u!143 &-3626106152632499423
 CharacterController:
   m_ObjectHideFlags: 0
@@ -81,49 +75,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.25, z: 0}
---- !u!1 &1831777965147169657
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7383717232070773184}
-  - component: {fileID: 4762200635714504284}
-  m_Layer: 0
-  m_Name: HitSphere
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7383717232070773184
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1831777965147169657}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.6975789, y: 0.50864387, z: -0.08372688}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4642388585493092742}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4762200635714504284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1831777965147169657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2fb7a8a134fbbd49875207a70aaa421, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2398820645678413616
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,49 +360,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &7710009096263273086
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7676628853262763955}
-  - component: {fileID: 1682061276141327026}
-  m_Layer: 0
-  m_Name: SenseSphere
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7676628853262763955
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7710009096263273086}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.6975789, y: 0.50864387, z: -0.08372688}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4642388585493092742}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1682061276141327026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7710009096263273086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d0a2969d2784044890fa1a473dd5151, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7803707187352982982
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,7 +420,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fa49848bc317f8a48b29c5f59d15aa54, type: 2}
+  - {fileID: 2100000, guid: edb1beec2f7343642bf4ff9db6652c76, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
