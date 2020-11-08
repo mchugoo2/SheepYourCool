@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SheepWorld.unity
     guid: 16f85f3aba969224e825851771f5ad7b
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 0dcff1964d8f4524883644406896b729
   m_configObjects: {}

@@ -6,6 +6,9 @@ using UnityEngine;
 public class ThirdPersonMovement : MonoBehaviour
 {
 
+    public GameManager mGameManager;
+    public MapManager mMapManager;
+
     public CharacterController mController;
 
     public float mSpeed = 6f;
@@ -16,9 +19,10 @@ public class ThirdPersonMovement : MonoBehaviour
 
     public Transform mCameraTransform;
 
-    public MapManager mMapManager;
-
     public int mMaxNumberOfFenceParts = 100; //TODO later, this should be in scenemanager/gamemanager
+
+
+
     private int mCurNumberOfFenceParts = 100; //TODO later, this should be in scenemanager/gamemanager
 
     private float mFallSpeed = 0f;
@@ -26,13 +30,18 @@ public class ThirdPersonMovement : MonoBehaviour
     private float mPlaceFenceCooldown = 1f;
     private float mPlaceFenceCooldownTimer = 0f;
 
-    private List<GameObject> mCurrentlyPlacedFences;
+    private SenseSphere mSenseSphere;
+    private HitSphere mHitSphere;
 
     // Start is called before the first frame update
     void Start()
     {
         mCurNumberOfFenceParts = mMaxNumberOfFenceParts;
-        mCurrentlyPlacedFences = new List<GameObject>();
+        mSenseSphere = GetComponentInChildren<SenseSphere>();
+        mHitSphere = GetComponentInChildren<HitSphere>();
+
+        mSenseSphere.Initialize(this);
+        mHitSphere.Initialize(this);
 
     }
 
@@ -41,7 +50,6 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         HandleMovement();
         PlaceFencePart();
-
     }
 
 
@@ -90,4 +98,21 @@ public class ThirdPersonMovement : MonoBehaviour
         mMapManager.PlaceFencePost(transform.position);
 
     }
+
+    public void CollisionSensed(Collider collider)
+    {
+        Debug.Log("SENSE");
+        collider.gameObject.SendMessage("GetSensed");
+    }
+
+    public void CollisionLeft(Collider collider)
+    {
+        collider.gameObject.SendMessage("NoMoreSensed");
+    }
+
+    public void CollisionHit(Collider collider)
+    {
+        mGameManager.GameOver(false);
+    }
+
 }
