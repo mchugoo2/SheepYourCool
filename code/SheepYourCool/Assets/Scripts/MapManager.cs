@@ -35,11 +35,14 @@ public class MapManager : MonoBehaviour
     private List<GameObject> mCurrentFenceParts;
     private List<GameObject> mCurrentFencePosts;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         mMeshGenerator = GetComponent<MeshGenerator>();
+    }
+
+    public void Initialize()
+    {
+        
         mMeshGenerator.Initialize();
 
         gameObject.transform.position = new Vector3(-mMeshGenerator.mXSize / 2f, gameObject.transform.position.y, -mMeshGenerator.mZSize / 2f);
@@ -58,7 +61,6 @@ public class MapManager : MonoBehaviour
         CreateBorder();
 
         ResetFenceBuilding();
-
     }
 
     private void CreateBorder()
@@ -246,5 +248,11 @@ public class MapManager : MonoBehaviour
         mCurrentFencePoints = new List<Vector3>();
         mCurrentFenceParts = new List<GameObject>();
         mCurrentFencePosts = new List<GameObject>();
+    }
+
+    public void SetSize(int size)
+    {
+        mMeshGenerator.mXSize = size;
+        mMeshGenerator.mZSize = size;
     }
 }
