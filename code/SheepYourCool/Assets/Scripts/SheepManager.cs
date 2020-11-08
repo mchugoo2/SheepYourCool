@@ -101,4 +101,11 @@ public class SheepManager : MonoBehaviour
             mGameManager.GameOver(true);
         }
     }
+
+    public static void Reset()
+    {
+        mNormalSheepAmount = 0;
+        mCaughtSheepAmount = 0;
+        mBorderedSheepAmount = 0;
+    }
 }

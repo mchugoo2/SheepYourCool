@@ -59,7 +59,6 @@ MonoBehaviour:
   mNeighbourDistance: 20
   mCriticalNeighbourhood: 0.1
   mCriticalWuffles: 0.25
-  mIsCatched: 0
   mSheepSenseSphere: {fileID: 1682061276141327026}
   mSheepHitSphere: {fileID: 4762200635714504284}
   mCurrentStatus: 0
@@ -91,7 +90,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7383717232070773184}
   - component: {fileID: 4762200635714504284}
-  m_Layer: 0
+  - component: {fileID: 7166588405430320882}
+  - component: {fileID: 1790580375937002227}
+  m_Layer: 11
   m_Name: HitSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,6 +125,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2fb7a8a134fbbd49875207a70aaa421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &7166588405430320882
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831777965147169657}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0.71, y: -0.32, z: 0}
+--- !u!54 &1790580375937002227
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831777965147169657}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2398820645678413616
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,7 +449,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7676628853262763955}
   - component: {fileID: 1682061276141327026}
-  m_Layer: 0
+  - component: {fileID: 758015832748712761}
+  - component: {fileID: 955423651603573956}
+  m_Layer: 11
   m_Name: SenseSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,6 +484,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d0a2969d2784044890fa1a473dd5151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &758015832748712761
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7710009096263273086}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Center: {x: 0.71, y: -0.32, z: 0}
+--- !u!54 &955423651603573956
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7710009096263273086}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7803707187352982982
 GameObject:
   m_ObjectHideFlags: 0

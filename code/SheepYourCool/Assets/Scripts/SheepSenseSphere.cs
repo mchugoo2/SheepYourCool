@@ -10,6 +10,7 @@ public class SheepSenseSphere : MonoBehaviour
     public void Initialize(Flock flock)
     {
         mFlock = flock;
+        mColls = new List<Collider>();
         mIsInitialized = true;
     }
 

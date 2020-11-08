@@ -10,4 +10,5 @@ public static class GlobalVariables
     public static int mAreaSize = 50;
 
     public static bool mWonLastGame = true;
+
 }
