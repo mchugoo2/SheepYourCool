@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Flock : MonoBehaviour
-{ 
+{
+    public CharacterController mController;
+    private float mFallSpeed = 0f;
+
     public float mSpeed = 0.1f;
     private float mBaseSpeed;
     [SerializeField] private float mMinSpeed = 0.2f;
@@ -42,7 +45,11 @@ public class Flock : MonoBehaviour
             ApplyRules();
         }
 
-        transform.Translate(0, 0, Time.deltaTime * mSpeed);
+        //falling if sheep loses ground contact
+        if (mController.isGrounded) { Debug.Log("grounded"); mFallSpeed = 0f; }
+        else mFallSpeed += Physics.gravity.y * Time.deltaTime;
+
+        mController.Move(new Vector3(0, mFallSpeed, Time.deltaTime * mSpeed));
     }
 
     void ApplyRules()
@@ -97,10 +104,7 @@ public class Flock : MonoBehaviour
                         mRotationSpeed * Time.deltaTime);
                 }
             }
-            else
-            {
-                mSpeed = Mathf.Max(mBaseSpeed, 0.999f * mSpeed);
-            }
+            else mSpeed = Mathf.Max(mBaseSpeed, 0.999f * mSpeed);
         }
     }
 }
