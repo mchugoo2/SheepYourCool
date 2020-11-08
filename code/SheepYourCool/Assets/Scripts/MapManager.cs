@@ -7,6 +7,8 @@ using UnityEngine;
 public class MapManager : MonoBehaviour
 {
 
+    public GameManager mGameManager;
+
     //BORDER STUFF
     //========================================
     public int mBorderPointsEachSide = 20;
@@ -155,12 +157,9 @@ public class MapManager : MonoBehaviour
 
         bool first = mCurrentFencePoints.Count == 0;
 
-        Debug.Log("pos " + pos);
-
         //first post -> just place it
         if (first)
         {
-            print("FIRST");
             CreatePost(pos);
             return;
 
@@ -168,9 +167,8 @@ public class MapManager : MonoBehaviour
 
         //same pos as last post -> do nothing
         Vector3 lastFencePos = mCurrentFencePoints[mCurrentFencePoints.Count-1];
-        if (Vector3.Distance(pos, lastFencePos) <= mTwoFencePointsAsOneThreshold)
+        if (Vector3.Distance(pos, lastFencePos) <= mTwoFencePointsAsOneThreshold || Vector3.Distance(pos, lastFencePos) > mMaxFenceDistanceThreshold)
         {
-            print("ONETHRESHOLD");
             return;
 
         }
@@ -181,20 +179,17 @@ public class MapManager : MonoBehaviour
         if (Vector3.Distance(pos, firstFencePos) <= mTwoFencePointsAsOneThreshold)
             if (mCurrentFencePoints.Count <= 1)
             {
-                print("ONETHRESHOLD");
                 return;
             }
 
             else
             {
-                print("CLOSEFENCE");
                 CloseFence();
                 return;
             }
 
 
         //if none of the above apply, place a fence between two fence posts
-        print("PLACEFENCEPART");
         CreatePost(pos);
         PlaceFencePart(false);
 
@@ -209,8 +204,8 @@ public class MapManager : MonoBehaviour
 
     private void CloseFence()
     {
-        //TODO
         PlaceFencePart(true);
+        mGameManager.FenceClosed(mCurrentFencePoints);
         ResetFenceBuilding();
     }
 

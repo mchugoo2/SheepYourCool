@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2151598278773649521}
   - component: {fileID: -3626106152632499423}
   m_Layer: 0
-  m_Name: SheepObject
+  m_Name: CatchedSheepObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ MonoBehaviour:
   mRotationSpeed: 4
   mNeighbourDistance: 2
   mCriticalNeighbourhood: 0.2
-  isCatched: 0
+  mIsCatched: 1
 --- !u!143 &-3626106152632499423
 CharacterController:
   m_ObjectHideFlags: 0
@@ -420,7 +420,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fa49848bc317f8a48b29c5f59d15aa54, type: 2}
+  - {fileID: 2100000, guid: d62aab0f38583dd4d95aa29da7ed276c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
