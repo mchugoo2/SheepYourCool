@@ -20,7 +20,7 @@ public class GlobalFlock : MonoBehaviour
         {
             Vector3 pos = new Vector3(
                 Random.Range(-mSheepRunSize, mSheepRunSize), 
-                0, 
+                5, 
                 Random.Range(-mSheepRunSize, mSheepRunSize));
             mAllSheep[i] = Instantiate(mSheepPrefab, pos, Quaternion.identity);
         }
