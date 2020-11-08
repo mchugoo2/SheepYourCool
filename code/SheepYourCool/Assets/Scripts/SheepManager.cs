@@ -5,6 +5,7 @@ using UnityEngine;
 public class SheepManager : MonoBehaviour
 {
     [SerializeField] public GameObject mSheepPrefab;
+    [SerializeField] public GameObject mWuffles;
     public GameObject mCatchedSheepPrefab;
     public static GameObject[] mAllSheep;
 
@@ -29,6 +30,7 @@ public class SheepManager : MonoBehaviour
                 5,
                 Random.Range(-mSheepRunSize, mSheepRunSize));
             GameObject sheep = Instantiate(mSheepPrefab, pos, Quaternion.identity);
+            sheep.GetComponent<Flock>().MeetMisterWuffles(mWuffles);
             mAllSheep[i] = sheep;
             mAllSheepAsList.Add(sheep);
         }

@@ -53,9 +53,10 @@ MonoBehaviour:
   mSpeed: 0.1
   mMinSpeed: 0.2
   mMaxSpeed: 0.75
-  mRotationSpeed: 4
-  mNeighbourDistance: 2
-  mCriticalNeighbourhood: 0.2
+  mRotationSpeed: 2
+  mNeighbourDistance: 20
+  mCriticalNeighbourhood: 0.1
+  mCriticalWuffles: 0.25
   mIsCatched: 0
 --- !u!143 &-3626106152632499423
 CharacterController:
