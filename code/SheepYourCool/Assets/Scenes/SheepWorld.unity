@@ -270,8 +270,28 @@ PrefabInstance:
       propertyPath: m_Name
       value: SheepManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2486128977205636344, guid: 6769f8ae7a139e4409912b8130588135, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6769f8ae7a139e4409912b8130588135, type: 3}
+--- !u!1 &349680840 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2486128977205636351, guid: 6769f8ae7a139e4409912b8130588135, type: 3}
+  m_PrefabInstance: {fileID: 349680839}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &349680841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349680840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdda84bdfc152104e93f1b948e88b369, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mSheepPrefab: {fileID: 1516622569849849453, guid: aaeb0e1763bc125458fc59592871c67a, type: 3}
+  mSheepAmount: 10
 --- !u!1001 &535030923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -359,11 +379,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5774134198866495808, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000017030267
+      value: 0.000000017030262
       objectReference: {fileID: 0}
     - target: {fileID: 5774134198866495808, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000024555389
+      value: 0.000000002455538
       objectReference: {fileID: 0}
     - target: {fileID: 5774134198866495808, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.w
@@ -375,11 +395,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5774134199554662374, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000001908708
+      value: 0.000000019087086
       objectReference: {fileID: 0}
     - target: {fileID: 5774134199554662374, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000023995028
+      value: 0.0000000023995037
       objectReference: {fileID: 0}
     - target: {fileID: 5774134199554662374, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.w
@@ -391,7 +411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5774134199965699605, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000022234351
+      value: 0.000000022234346
       objectReference: {fileID: 0}
     - target: {fileID: 5774134199965699605, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.w
@@ -411,7 +431,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5774134199965699605, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000048721662
+      value: 0.000000004872165
       objectReference: {fileID: 0}
     - target: {fileID: 5774134200310488214, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalPosition.x
@@ -495,11 +515,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5774134200569124458, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000017083314
+      value: -0.000000017108196
       objectReference: {fileID: 0}
     - target: {fileID: 5774134200569124458, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000001832623
+      value: -0.0000000018352925
       objectReference: {fileID: 0}
     - target: {fileID: 5774134200569124458, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalPosition.y
@@ -623,7 +643,7 @@ GameObject:
   - component: {fileID: 1868184702}
   - component: {fileID: 1868184701}
   m_Layer: 0
-  m_Name: SceneManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -642,6 +662,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mCursorLockedAndInvisible: 1
+  mMapManager: {fileID: 1486054677}
+  mSheepManager: {fileID: 349680841}
 --- !u!4 &1868184702
 Transform:
   m_ObjectHideFlags: 0

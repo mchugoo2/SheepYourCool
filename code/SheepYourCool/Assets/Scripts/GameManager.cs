@@ -5,6 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public bool mCursorLockedAndInvisible = true;
+
+    public MapManager mMapManager;
+    public SheepManager mSheepManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +17,18 @@ public class GameManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+
+        if (GlobalVariables.mInitializedPerMenu)
+        {
+            mMapManager.SetSize(GlobalVariables.mAreaSize);
+            mSheepManager.mSheepAmount = GlobalVariables.mSheepAmount;
+        }
+
+        mMapManager.Initialize();
+        mSheepManager.Initialize();
+
+        
+
         
     }
 

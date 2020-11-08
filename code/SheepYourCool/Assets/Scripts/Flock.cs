@@ -26,7 +26,7 @@ public class Flock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(transform.position, Vector3.zero) >= GlobalFlock.mSheepRunSize)
+        if (Vector3.Distance(transform.position, Vector3.zero) >= SheepManager.mSheepRunSize)
         {
             turn = true;
         }
@@ -53,12 +53,12 @@ public class Flock : MonoBehaviour
 
     void ApplyRules()
     {
-        GameObject[] allSheep = GlobalFlock.mAllSheep;
+        GameObject[] allSheep = SheepManager.mAllSheep;
 
         Vector3 groupCenter = Vector3.zero;
         Vector3 groupAvoid = Vector3.zero;
         float groupSpeed = 0.1f;
-        Vector3 goalPos = GlobalFlock.mGoalPos;
+        Vector3 goalPos = SheepManager.mGoalPos;
         float distance;
         int groupSize = 0;
 
