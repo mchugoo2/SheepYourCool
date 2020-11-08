@@ -9,4 +9,5 @@ public static class GlobalVariables
     public static int mSheepAmount = 10;
     public static int mAreaSize = 50;
 
+    public static bool mWonLastGame = true;
 }

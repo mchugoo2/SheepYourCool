@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -76,6 +77,12 @@ public class GameManager : MonoBehaviour
             Debug.Log("CATCHED SHEEP!");
         }
         return inside;
+    }
+
+    public void GameOver(bool won)
+    {
+        GlobalVariables.mWonLastGame = won;
+        SceneManager.LoadScene(2);
     }
 
 }

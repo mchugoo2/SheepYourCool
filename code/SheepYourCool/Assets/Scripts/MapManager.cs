@@ -17,6 +17,9 @@ public class MapManager : MonoBehaviour
 
     public float mBorderPointSharpness = 0.7f; //the greater this is, the deeper border points go in to the middle
 
+    public float mBorderHeight = 30.0f;
+    public float mBorderThickness = 0.5f;
+
     private MeshGenerator mMeshGenerator;
     private List<Vector2> mBorderPointList;
     private List<GameObject> mBorderParts;
@@ -32,6 +35,7 @@ public class MapManager : MonoBehaviour
     public float mTwoFencePointsAsOneThreshold = 2.0f;
     public float mMaxFenceDistanceThreshold = 5f;
     public float mFenceHeight = 5f;
+    public float mFenceThickness = 0.5f;
 
     private GameObject mCurrentFenceParent;
     private List<Vector3> mCurrentFencePoints;
@@ -115,7 +119,7 @@ public class MapManager : MonoBehaviour
         Vector3 between = new Vector3(between2d.x, 0, between2d.y);
         float distBetween = between.magnitude;
 
-        borderPart.transform.localScale = new Vector3(1, 20, distBetween);
+        borderPart.transform.localScale = new Vector3(mBorderThickness, mBorderHeight, distBetween);
         borderPart.transform.position = new Vector3(lastVertexRandomized.x, 0, lastVertexRandomized.y) + (between / 2.0f);
         borderPart.transform.LookAt(currentVertex);
         borderPart.transform.rotation = Quaternion.LookRotation(between);
@@ -221,7 +225,7 @@ public class MapManager : MonoBehaviour
         Vector3 between = secondPost - firstPost;
         float distBetween = between.magnitude;
 
-        fencePart.transform.localScale = new Vector3(1, mFenceHeight, distBetween);
+        fencePart.transform.localScale = new Vector3(mFenceThickness, mFenceHeight, distBetween);
         fencePart.transform.position = firstPost + (between / 2.0f);
         fencePart.transform.LookAt(secondPost);
         fencePart.transform.rotation = Quaternion.LookRotation(between);
