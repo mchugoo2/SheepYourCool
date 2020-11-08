@@ -12,15 +12,16 @@ public class Flock : MonoBehaviour
     private float mBaseSpeed;
     [SerializeField] private float mMinSpeed = 0.2f;
     [SerializeField] private float mMaxSpeed = 0.75f;
-    [SerializeField] private float mRotationSpeed = 0.5f;
-
-
-    [SerializeField] private float mNeighbourDistance = 5.0f;
+    [SerializeField] private float mRotationSpeed = 2f;
+    [SerializeField] private float mNeighbourDistance = 20f;
     [SerializeField] private float mCriticalNeighbourhood = 0.2f;
+    [SerializeField] private float mCriticalWuffles = 0.5f;
     private bool mTurn = false;
+    private bool mFlee = false;
 
     public SheepSenseSphere mSheepSenseSphere;
     public SheepHitSphere mSheepHitSphere;
+    private GameObject mMisterWuffles;
 
     private SheepManager mSheepManager;
     private int mOwnIndex = -1;
@@ -55,13 +56,30 @@ public class Flock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (mCurrentStatus != Status.NORMAL) 
+            return;
+
+        Debug.Log("Wuffles " + mMisterWuffles);
+        if (Vector3.Distance(transform.position, mMisterWuffles.transform.position) <= mCriticalWuffles * mNeighbourDistance)
+            mFlee = true;
+        else mFlee = false;
+
         if (Vector3.Distance(transform.position, Vector3.zero) >= SheepManager.mSheepRunSize)
-        {
             mTurn = true;
-        }
         else mTurn = false;
 
-        if (mTurn)
+        if (mFlee)
+        {
+            Vector3 direction =
+                new Vector3(transform.position.x, 0, transform.position.z) -
+                new Vector3(mMisterWuffles.transform.position.x, 0, mMisterWuffles.transform.position.z);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                Quaternion.LookRotation(direction),
+                mRotationSpeed * Time.deltaTime);
+            mSpeed = 5f;
+        }
+        else if (mTurn)
         {
             Vector3 direction = Vector3.zero - transform.position;
             transform.rotation = Quaternion.Slerp(
@@ -75,9 +93,12 @@ public class Flock : MonoBehaviour
         }
 
         //falling if sheep loses ground contact
-        else mFallSpeed += Physics.gravity.y * Time.deltaTime;
+        mFallSpeed += Physics.gravity.y * Time.deltaTime;
 
-        mController.Move(new Vector3(0, mFallSpeed, Time.deltaTime * mSpeed));
+        float x = Time.deltaTime * mSpeed * (1 - Mathf.Abs(Mathf.Cos(transform.rotation.y)));
+        float z = Time.deltaTime * mSpeed * Mathf.Abs(Mathf.Cos(transform.rotation.y));
+
+        mController.Move(new Vector3(x, mFallSpeed, z));
     }
 
     void ApplyRules()
@@ -134,6 +155,11 @@ public class Flock : MonoBehaviour
             }
             else mSpeed = Mathf.Max(mBaseSpeed, 0.999f * mSpeed);
         }
+    }
+
+    public void MeetMisterWuffles(GameObject wuffles)
+    {
+        mMisterWuffles = wuffles;
     }
 
     public void CollisionSensed(Collider collider)

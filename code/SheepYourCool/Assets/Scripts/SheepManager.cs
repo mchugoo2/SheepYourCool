@@ -7,6 +7,7 @@ public class SheepManager : MonoBehaviour
     public GameManager mGameManager;
 
     [SerializeField] public GameObject mSheepPrefab;
+    [SerializeField] public GameObject mWuffles;
     public GameObject mCatchedSheepPrefab;
     public GameObject mBorderedSheepPrefab;
     public static GameObject[] mAllSheep;
@@ -34,6 +35,7 @@ public class SheepManager : MonoBehaviour
                 5,
                 Random.Range(-mSheepRunSize, mSheepRunSize));
             GameObject sheep = Instantiate(mSheepPrefab, pos, Quaternion.identity);
+            sheep.GetComponent<Flock>().MeetMisterWuffles(mWuffles);
             mAllSheep[i] = sheep;
             sheep.GetComponent<Flock>().Initialize(this, i);
         }

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
-
     public GameManager mGameManager;
     public MapManager mMapManager;
 
