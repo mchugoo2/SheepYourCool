@@ -101,7 +101,6 @@ public class ThirdPersonMovement : MonoBehaviour
 
     public void CollisionSensed(Collider collider)
     {
-        Debug.Log("SENSE");
         collider.gameObject.SendMessage("GetSensed");
     }
 

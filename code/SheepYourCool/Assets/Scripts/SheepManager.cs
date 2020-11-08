@@ -8,6 +8,7 @@ public class SheepManager : MonoBehaviour
 
     [SerializeField] public GameObject mSheepPrefab;
     public GameObject mCatchedSheepPrefab;
+    public GameObject mBorderedSheepPrefab;
     public static GameObject[] mAllSheep;
 
     [SerializeField] public int mSheepAmount = 10;
@@ -34,6 +35,7 @@ public class SheepManager : MonoBehaviour
                 Random.Range(-mSheepRunSize, mSheepRunSize));
             GameObject sheep = Instantiate(mSheepPrefab, pos, Quaternion.identity);
             mAllSheep[i] = sheep;
+            sheep.GetComponent<Flock>().Initialize(this, i);
         }
 
         mIsInitialized = true;
@@ -57,7 +59,7 @@ public class SheepManager : MonoBehaviour
     public void CatchSheep(int index)
     {
         GameObject sheep = mAllSheep[index];
-        if (sheep.GetComponent<Flock>().mIsCatched)
+        if (sheep.GetComponent<Flock>().mCurrentStatus != Flock.Status.NORMAL)
         {
             return;
         }
@@ -70,6 +72,29 @@ public class SheepManager : MonoBehaviour
         mCaughtSheepAmount++;
 
         if(mNormalSheepAmount <= 0)
+        {
+            mGameManager.GameOver(true);
+        }
+    }
+
+    public void SheepBordered(int index)
+    {
+        GameObject sheep = mAllSheep[index];
+        if (sheep.GetComponent<Flock>().mCurrentStatus != Flock.Status.NORMAL)
+        {
+            return;
+        }
+
+        GameObject newSheep = Instantiate(mBorderedSheepPrefab, sheep.transform.position, Quaternion.identity);
+        Destroy(sheep);
+
+        mAllSheep[index] = newSheep;
+        mNormalSheepAmount--;
+        mBorderedSheepAmount++;
+
+        mGameManager.UpdateCanvas();
+
+        if (mNormalSheepAmount <= 0)
         {
             mGameManager.GameOver(true);
         }

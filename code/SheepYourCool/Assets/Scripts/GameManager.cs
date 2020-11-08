@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         {
             GameObject sheep = 
                 SheepManager.mAllSheep[i];
-            if (!sheep.GetComponent<Flock>().mIsCatched && ContainsPoint(fencePolygon, new Vector2(sheep.transform.position.x, sheep.transform.position.z)))
+            if (sheep.GetComponent<Flock>().mCurrentStatus == Flock.Status.NORMAL && ContainsPoint(fencePolygon, new Vector2(sheep.transform.position.x, sheep.transform.position.z)))
             {
 
                 mSheepManager.CatchSheep(i);
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
-   private void UpdateCanvas()
+   public void UpdateCanvas()
     {
         mCanvasManager.UpdateNumbers(SheepManager.mNormalSheepAmount, SheepManager.mCaughtSheepAmount, SheepManager.mBorderedSheepAmount);
     }

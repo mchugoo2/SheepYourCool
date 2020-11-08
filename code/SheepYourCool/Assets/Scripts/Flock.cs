@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,17 +13,43 @@ public class Flock : MonoBehaviour
     [SerializeField] private float mMinSpeed = 0.2f;
     [SerializeField] private float mMaxSpeed = 0.75f;
     [SerializeField] private float mRotationSpeed = 0.5f;
+
+
     [SerializeField] private float mNeighbourDistance = 5.0f;
     [SerializeField] private float mCriticalNeighbourhood = 0.2f;
     private bool mTurn = false;
 
-    public bool mIsCatched = false;
+    public SheepSenseSphere mSheepSenseSphere;
+    public SheepHitSphere mSheepHitSphere;
+
+    private SheepManager mSheepManager;
+    private int mOwnIndex = -1;
+
+    public enum Status
+    {
+        NORMAL,
+        IS_CATCHED,
+        IS_BORDERED
+    }
+
+    public Status mCurrentStatus = Status.NORMAL;
+
+
+    public void Initialize(SheepManager sheepManager, int ownIndex)
+    {
+        mSheepSenseSphere.Initialize(this);
+        mSheepHitSphere.Initialize(this);
+        mSheepManager = sheepManager;
+        mOwnIndex = ownIndex;
+
+        mBaseSpeed = UnityEngine.Random.Range(mMinSpeed, mMaxSpeed);
+        mSpeed = mBaseSpeed;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        mBaseSpeed = Random.Range(mMinSpeed, mMaxSpeed);
-        mSpeed = mBaseSpeed;
+        
     }
 
     // Update is called once per frame
@@ -42,7 +69,7 @@ public class Flock : MonoBehaviour
                 Quaternion.LookRotation(direction),
                 mRotationSpeed * Time.deltaTime);
         }
-        else if (Random.Range(0, 5) < 1)
+        else if (UnityEngine.Random.Range(0, 5) < 1)
         {
             ApplyRules();
         }
@@ -107,5 +134,24 @@ public class Flock : MonoBehaviour
             }
             else mSpeed = Mathf.Max(mBaseSpeed, 0.999f * mSpeed);
         }
+    }
+
+    public void CollisionSensed(Collider collider)
+    {
+        collider.gameObject.SendMessage("GetSensed");
+    }
+
+    public void CollisionLeft(Collider collider)
+    {
+        collider.gameObject.SendMessage("NoMoreSensed");
+    }
+
+    public void CollisionHit(Collider collider)
+    {
+        foreach(Collider coll in mSheepSenseSphere.GetColls())
+        {
+            coll.gameObject.SendMessage("NoMoreSensed");
+        }
+        mSheepManager.SheepBordered(mOwnIndex);
     }
 }

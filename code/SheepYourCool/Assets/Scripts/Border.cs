@@ -16,7 +16,7 @@ public class Border : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         mMeshRenderer = GetComponent<MeshRenderer>();
     }
