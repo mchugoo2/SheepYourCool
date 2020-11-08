@@ -6,6 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(MeshGenerator))]
 public class MapManager : MonoBehaviour
 {
+
+    //BORDER STUFF
+    //========================================
     public int mBorderPointsEachSide = 20;
     public GameObject mBorderPartPrefab;
     public GameObject mBorderColumnPrefab;
@@ -18,6 +21,20 @@ public class MapManager : MonoBehaviour
     private List<GameObject> mBorderColumns;
 
     private Vector2[] mBorderCorners = new Vector2[4];
+
+    //FENCE STUFF
+    //========================================
+    public GameObject mFencePartPrefab;
+    public GameObject mFencePostPrefab;
+
+    public float mTwoFencePointsAsOneThreshold = 0.2f;
+    public float mMaxFenceDistanceThreshold = 5f;
+
+    private GameObject mCurrentFenceParent;
+    private List<Vector3> mCurrentFencePoints;
+    private List<GameObject> mCurrentFenceParts;
+    private List<GameObject> mCurrentFencePosts;
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +56,9 @@ public class MapManager : MonoBehaviour
         mBorderCorners[3] = new Vector2(pos.x, pos.z + mMeshGenerator.mZSize);
 
         CreateBorder();
+
+        ResetFenceBuilding();
+
     }
 
     private void CreateBorder()
@@ -52,14 +72,14 @@ public class MapManager : MonoBehaviour
 
             mBorderPointList.Add(firstCorner);
 
-            Vector2 distStep = (secondCorner - firstCorner) / (mBorderPointsEachSide-1);
+            Vector2 distStep = (secondCorner - firstCorner) / (mBorderPointsEachSide - 1);
             bool changeOnX = distStep.x != 0; //if not, there is change on z
 
             Vector2 lastVertexNormal = firstCorner;
             Vector2 lastVertexRandomized = firstCorner;
             for (int step = 1; step < mBorderPointsEachSide; step++)
             {
-                
+
                 Vector2 currentVertex = step == mBorderPointsEachSide - 1 ? new Vector2(secondCorner.x, secondCorner.y) : lastVertexNormal + distStep; //distinction just to make sure that secondCorner is really reached
 
                 Vector2 oldCurrentVertex = new Vector2(currentVertex.x, currentVertex.y);
@@ -76,7 +96,7 @@ public class MapManager : MonoBehaviour
 
                 CreateBorderPartAndColumn(currentVertex, lastVertexRandomized);
 
-                
+
                 lastVertexRandomized = currentVertex;
             }
 
@@ -94,7 +114,7 @@ public class MapManager : MonoBehaviour
         borderPart.transform.position = new Vector3(lastVertexRandomized.x, 0, lastVertexRandomized.y) + (between / 2.0f);
         borderPart.transform.LookAt(currentVertex);
         borderPart.transform.rotation = Quaternion.LookRotation(between);
-        
+
         borderPart.transform.parent = gameObject.transform;
 
         mBorderParts.Add(borderPart);
@@ -108,26 +128,123 @@ public class MapManager : MonoBehaviour
 
     private Vector2 CalculateRandomVertexPos(Vector2 currentVertex, Vector2 lastVertex, bool changeOnX)
     {
-        
+
         Vector2 minPosOnLine = currentVertex - (currentVertex - lastVertex) / 2.0f;
         Vector2 maxPosOnLine = currentVertex + (currentVertex - lastVertex) / 2.0f;
 
         Vector2 posOnLine = minPosOnLine + UnityEngine.Random.value * (maxPosOnLine - minPosOnLine);
 
         Vector2 minPosToMiddle = currentVertex;
-        Vector2 addSize = changeOnX ? new Vector2(0, -mBorderPointSharpness*currentVertex.y) : new Vector2(-mBorderPointSharpness*currentVertex.x, 0);
+        Vector2 addSize = changeOnX ? new Vector2(0, -mBorderPointSharpness * currentVertex.y) : new Vector2(-mBorderPointSharpness * currentVertex.x, 0);
         //Vector2 addSize = changeOnX ? new Vector2(0, (float)mMeshGenerator.mZSize/mBorderPointsEachSide) : new Vector2((float)mMeshGenerator.mXSize / mBorderPointsEachSide, 0);
         //if (changeOnX && currentVertex.y > 0 || !changeOnX && currentVertex.x > 0)
         //    addSize = -addSize;
         Vector2 maxPosToMiddle = currentVertex + addSize;
         Vector2 posToMiddle = minPosToMiddle + UnityEngine.Random.value * (maxPosToMiddle - minPosToMiddle);
         return (changeOnX ? new Vector2(posOnLine.x, posToMiddle.y) : new Vector2(posToMiddle.x, posOnLine.y));
-        //return (changeOnX? new Vector2(currentVertex.x, posToMiddle.y) : new Vector2(posToMiddle.x, currentVertex.y));
     }
 
-    // Update is called once per frame
-    void Update()
+
+
+    public void PlaceFencePost(Vector3 pos)
     {
 
+
+        bool first = mCurrentFencePoints.Count == 0;
+
+        Debug.Log("pos " + pos);
+
+        //first post -> just place it
+        if (first)
+        {
+            print("FIRST");
+            CreatePost(pos);
+            return;
+
+        }
+
+        //same pos as last post -> do nothing
+        Vector3 lastFencePos = mCurrentFencePoints[0];
+        if (Vector3.Distance(pos, lastFencePos) <= mTwoFencePointsAsOneThreshold)
+        {
+            print("ONETHRESHOLD");
+            return;
+
+        }
+
+
+        //same pos as very first post -> check if there is an enclosure
+        Vector3 firstFencePos = mCurrentFencePoints[mCurrentFencePoints.Count - 1];
+        if (Vector3.Distance(pos, firstFencePos) <= mTwoFencePointsAsOneThreshold)
+            if (mCurrentFencePoints.Count <= 1)
+            {
+                print("ONETHRESHOLD");
+                return;
+            }
+
+            else
+            {
+                print("CLOSEFENCE");
+                CloseFence();
+                return;
+            }
+
+
+        //if none of the above apply, place a fence between two fence posts
+        print("PLACEFENCEPART");
+        CreatePost(pos);
+        PlaceFencePart();
+
+    }
+
+    private void CreatePost(Vector3 pos)
+    {
+        mCurrentFencePoints.Add(pos);
+        GameObject newFencePost = Instantiate(mFencePostPrefab, pos, Quaternion.identity, mCurrentFenceParent.transform);
+        mCurrentFencePosts.Add(newFencePost);
+    }
+
+    private void CloseFence()
+    {
+        //TODO
+        ResetFenceBuilding();
+    }
+
+    private void PlaceFencePart()
+    {
+        //its already checked that there are two ore more fence posts
+        Vector3 firstPost = mCurrentFencePoints[1];
+        Vector3 secondPost = mCurrentFencePoints[0];
+
+        GameObject fencePart = Instantiate(mFencePartPrefab);
+        Vector3 between = secondPost - firstPost;
+        float distBetween = between.magnitude;
+
+        fencePart.transform.localScale = new Vector3(1, 5, distBetween);
+        fencePart.transform.position = firstPost + (between / 2.0f);
+        fencePart.transform.LookAt(secondPost);
+        fencePart.transform.rotation = Quaternion.LookRotation(between);
+
+
+        fencePart.transform.parent = mCurrentFenceParent.transform;
+
+
+        mCurrentFenceParts.Add(fencePart);
+
+    }
+
+    public void RemoveCurrentFenceSystem()
+    {
+
+    }
+
+    private void ResetFenceBuilding()
+    {
+        mCurrentFenceParent = new GameObject();
+        mCurrentFenceParent.name = "FenceParent";
+        mCurrentFenceParent.transform.parent = gameObject.transform;
+        mCurrentFencePoints = new List<Vector3>();
+        mCurrentFenceParts = new List<GameObject>();
+        mCurrentFencePosts = new List<GameObject>();
     }
 }

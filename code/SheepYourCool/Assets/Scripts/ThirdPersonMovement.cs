@@ -16,6 +16,8 @@ public class ThirdPersonMovement : MonoBehaviour
 
     public Transform mCameraTransform;
 
+    public MapManager mMapManager;
+
     public int mMaxNumberOfFenceParts = 100; //TODO later, this should be in scenemanager/gamemanager
     private int mCurNumberOfFenceParts = 100; //TODO later, this should be in scenemanager/gamemanager
 
@@ -24,14 +26,18 @@ public class ThirdPersonMovement : MonoBehaviour
     private float mPlaceFenceCooldown = 1f;
     private float mPlaceFenceCooldownTimer = 0f;
 
+    private List<GameObject> mCurrentlyPlacedFences;
+
     // Start is called before the first frame update
     void Start()
     {
         mCurNumberOfFenceParts = mMaxNumberOfFenceParts;
-    }
+        mCurrentlyPlacedFences = new List<GameObject>();
 
-    // Update is called once per frame
-    void Update()
+}
+
+// Update is called once per frame
+void Update()
     {
         HandleMovement();
         PlaceFencePart();
@@ -80,6 +86,8 @@ public class ThirdPersonMovement : MonoBehaviour
             return;
         }
 
-        //TODO place fence and stuff
+        mPlaceFenceCooldownTimer = mPlaceFenceCooldown;
+        mMapManager.PlaceFencePost(transform.position);
+        
     }
 }
