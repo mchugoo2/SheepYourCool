@@ -56,6 +56,10 @@ public class Flock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (mCurrentStatus != Status.NORMAL) 
+            return;
+
+        Debug.Log("Wuffles " + mMisterWuffles);
         if (Vector3.Distance(transform.position, mMisterWuffles.transform.position) <= mCriticalWuffles * mNeighbourDistance)
             mFlee = true;
         else mFlee = false;
