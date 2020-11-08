@@ -29,8 +29,7 @@ public class MeshGenerator : MonoBehaviour
     private Vector3[] mVertices;
     private int[] mTriangles;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Initialize()
     {
         mMesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mMesh;
@@ -44,8 +43,11 @@ public class MeshGenerator : MonoBehaviour
             coll.sharedMesh = null;
             coll.sharedMesh = mMesh;
         }
-        
+    }
 
+    public Mesh GetMesh()
+    {
+        return mMesh;
     }
 
 
