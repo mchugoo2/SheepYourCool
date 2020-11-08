@@ -34,10 +34,10 @@ public class ThirdPersonMovement : MonoBehaviour
         mCurNumberOfFenceParts = mMaxNumberOfFenceParts;
         mCurrentlyPlacedFences = new List<GameObject>();
 
-}
+    }
 
-// Update is called once per frame
-void Update()
+    // Update is called once per frame
+    void Update()
     {
         HandleMovement();
         PlaceFencePart();
@@ -79,15 +79,15 @@ void Update()
         mPlaceFenceCooldownTimer -= Time.deltaTime;
         if (mPlaceFenceCooldownTimer < 0)
             mPlaceFenceCooldownTimer = 0;
-       
 
-        if (!Input.GetKeyDown(KeyCode.Space) || mPlaceFenceCooldownTimer > 0 || mCurNumberOfFenceParts <= 0 )
+
+        if (!Input.GetKeyDown(KeyCode.Space) || mPlaceFenceCooldownTimer > 0 || mCurNumberOfFenceParts <= 0)
         {
             return;
         }
 
         mPlaceFenceCooldownTimer = mPlaceFenceCooldown;
         mMapManager.PlaceFencePost(transform.position);
-        
+
     }
 }

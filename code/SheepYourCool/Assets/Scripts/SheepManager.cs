@@ -5,6 +5,7 @@ using UnityEngine;
 public class SheepManager : MonoBehaviour
 {
     [SerializeField] public GameObject mSheepPrefab;
+    public GameObject mCatchedSheepPrefab;
     public static GameObject[] mAllSheep;
 
     [SerializeField] public int mSheepAmount = 10;
@@ -12,10 +13,14 @@ public class SheepManager : MonoBehaviour
 
     public static Vector3 mGoalPos = new Vector3(0f, 0f, 0f);
 
+    public List<GameObject> mAllSheepAsList;
+    
+
     private bool mIsInitialized = false;
 
     public void Initialize()
     {
+        mAllSheepAsList = new List<GameObject>();
         mAllSheep = new GameObject[mSheepAmount];
         for (int i = 0; i < mSheepAmount; i++)
         {
@@ -23,7 +28,9 @@ public class SheepManager : MonoBehaviour
                 Random.Range(-mSheepRunSize, mSheepRunSize),
                 5,
                 Random.Range(-mSheepRunSize, mSheepRunSize));
-            mAllSheep[i] = Instantiate(mSheepPrefab, pos, Quaternion.identity);
+            GameObject sheep = Instantiate(mSheepPrefab, pos, Quaternion.identity);
+            mAllSheep[i] = sheep;
+            mAllSheepAsList.Add(sheep);
         }
 
         mIsInitialized = true;
@@ -42,5 +49,20 @@ public class SheepManager : MonoBehaviour
                 0,
                 Random.Range(-mSheepRunSize, mSheepRunSize));
         }
+    }
+
+    public void CatchSheep(int index)
+    {
+        GameObject sheep = mAllSheepAsList[index];
+        if (sheep.GetComponent<Flock>().mIsCatched)
+        {
+            return;
+        }
+
+        GameObject newSheep = Instantiate(mCatchedSheepPrefab, sheep.transform.position, Quaternion.identity);
+        Destroy(sheep);
+
+        mAllSheepAsList[index] = newSheep;
+        mAllSheep[index] = newSheep;
     }
 }

@@ -14,7 +14,9 @@ public class Flock : MonoBehaviour
     [SerializeField] private float mRotationSpeed = 0.5f;
     [SerializeField] private float mNeighbourDistance = 5.0f;
     [SerializeField] private float mCriticalNeighbourhood = 0.2f;
-    private bool turn = false;
+    private bool mTurn = false;
+
+    public bool mIsCatched = false;
 
     // Start is called before the first frame update
     void Start()
@@ -28,11 +30,11 @@ public class Flock : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, Vector3.zero) >= SheepManager.mSheepRunSize)
         {
-            turn = true;
+            mTurn = true;
         }
-        else turn = false;
+        else mTurn = false;
 
-        if (turn)
+        if (mTurn)
         {
             Vector3 direction = Vector3.zero - transform.position;
             transform.rotation = Quaternion.Slerp(
