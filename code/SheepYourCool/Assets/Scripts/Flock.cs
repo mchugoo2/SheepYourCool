@@ -46,7 +46,6 @@ public class Flock : MonoBehaviour
         }
 
         //falling if sheep loses ground contact
-        if (mController.isGrounded) { Debug.Log("grounded"); mFallSpeed = 0f; }
         else mFallSpeed += Physics.gravity.y * Time.deltaTime;
 
         mController.Move(new Vector3(0, mFallSpeed, Time.deltaTime * mSpeed));

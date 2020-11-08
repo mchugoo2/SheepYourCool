@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,17 +16,38 @@ public class ThirdPersonMovement : MonoBehaviour
 
     public Transform mCameraTransform;
 
-    private float fallSpeed = 0f;
+    public MapManager mMapManager;
+
+    public int mMaxNumberOfFenceParts = 100; //TODO later, this should be in scenemanager/gamemanager
+    private int mCurNumberOfFenceParts = 100; //TODO later, this should be in scenemanager/gamemanager
+
+    private float mFallSpeed = 0f;
+
+    private float mPlaceFenceCooldown = 1f;
+    private float mPlaceFenceCooldownTimer = 0f;
+
+    private List<GameObject> mCurrentlyPlacedFences;
+
     // Start is called before the first frame update
     void Start()
     {
+        mCurNumberOfFenceParts = mMaxNumberOfFenceParts;
+        mCurrentlyPlacedFences = new List<GameObject>();
+
+}
+
+// Update is called once per frame
+void Update()
+    {
+        HandleMovement();
+        PlaceFencePart();
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
+
+    private void HandleMovement()
+    {
         //movement in x and z dir
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
@@ -45,11 +67,27 @@ public class ThirdPersonMovement : MonoBehaviour
         //falling if Wuffles loses ground contact
 
         if (mController.isGrounded)
-            fallSpeed = 0f;
+            mFallSpeed = 0f;
 
         else
-            fallSpeed += Physics.gravity.y * Time.deltaTime;
+            mFallSpeed += Physics.gravity.y * Time.deltaTime;
 
-        mController.Move(new Vector3(0f, fallSpeed * mWeight, 0f));
+        mController.Move(new Vector3(0f, mFallSpeed * mWeight, 0f));
+    }
+    private void PlaceFencePart()
+    {
+        mPlaceFenceCooldownTimer -= Time.deltaTime;
+        if (mPlaceFenceCooldownTimer < 0)
+            mPlaceFenceCooldownTimer = 0;
+       
+
+        if (!Input.GetKeyDown(KeyCode.Space) || mPlaceFenceCooldownTimer > 0 || mCurNumberOfFenceParts <= 0 )
+        {
+            return;
+        }
+
+        mPlaceFenceCooldownTimer = mPlaceFenceCooldown;
+        mMapManager.PlaceFencePost(transform.position);
+        
     }
 }

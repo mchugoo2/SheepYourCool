@@ -335,6 +335,10 @@ PrefabInstance:
       propertyPath: mCameraTransform
       value: 
       objectReference: {fileID: 1304229597}
+    - target: {fileID: 6881361762700751535, guid: 3debf7cfdd9e54b41a02cb0160e6450d, type: 3}
+      propertyPath: mMapManager
+      value: 
+      objectReference: {fileID: 1486054677}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3debf7cfdd9e54b41a02cb0160e6450d, type: 3}
 --- !u!4 &535030924 stripped
@@ -371,11 +375,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5774134199554662374, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000001908708
+      value: 0.00000001908708
       objectReference: {fileID: 0}
     - target: {fileID: 5774134199554662374, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000023995028
+      value: 0.0000000023995028
       objectReference: {fileID: 0}
     - target: {fileID: 5774134199554662374, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.w
@@ -491,11 +495,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5774134200569124458, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000001710822
+      value: -0.000000017083314
       objectReference: {fileID: 0}
     - target: {fileID: 5774134200569124458, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000018352958
+      value: -0.000000001832623
       objectReference: {fileID: 0}
     - target: {fileID: 5774134200569124458, guid: e20e84a7b753c804d83ef8541dbfcd92, type: 3}
       propertyPath: m_LocalPosition.y
@@ -539,6 +543,14 @@ PrefabInstance:
       propertyPath: mBorderColumnPrefab
       value: 
       objectReference: {fileID: 8042964250032498505, guid: 59e10e626d1c4ad4984fad36ce211aea, type: 3}
+    - target: {fileID: 652669706, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
+      propertyPath: mFencePostPrefab
+      value: 
+      objectReference: {fileID: 2740559554636218589, guid: 7af3bfe8aa4660d4ab4ec409be8a3327, type: 3}
+    - target: {fileID: 652669706, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
+      propertyPath: mFencePartPrefab
+      value: 
+      objectReference: {fileID: 6966989885356785114, guid: 8a4414265b417134d801617b9df83a50, type: 3}
     - target: {fileID: 8787617495520714631, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -100
@@ -589,6 +601,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
+--- !u!114 &1486054677 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 652669706, guid: 5d8ab48ef251f514d86adfdd83c06cd8, type: 3}
+  m_PrefabInstance: {fileID: 1486054676}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9318423090e745047a59e36fdfb45107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1868184700
 GameObject:
   m_ObjectHideFlags: 0
